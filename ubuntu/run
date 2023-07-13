@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+qemu-system-aarch64 -m 4096 \
+ -cpu host -smp cpus=4,sockets=1,cores=4,threads=1 -machine virt -accel hvf \
+ -bios ./QEMU_EFI.fd \
+ -serial stdio \
+ -accel hvf \
+ -drive if=virtio,format=raw,file=./ubuntu.img,id=hd0 \
+ -device virtio-gpu-pci -device nec-usb-xhci -device usb-tablet -device usb-kbd
+
+#  -device virtio-blk-device,drive=hd0 \
+#-cpu hostless ql -smp 2 -M virt -bios ./QEMU_EFI.fd \
+# -device virtio-net-pci,mac=7E:35:52:72:1A:66,netdev=net0 -netdev vmnet-shared,id=net0 \
+# -device virtio-net-device,vlan=0,id=net0,mac=52:54:00:09:a4:37 -net user,vlan=0,name=hostnet0 \

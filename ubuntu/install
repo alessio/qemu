@@ -1,0 +1,10 @@
+qemu-system-aarch64 \
+        -machine virt -accel hvf \
+        -machine virt,accel=hvf \
+        -cpu host \
+        -smp 8 \
+        -m 8G \
+        -drive if=virtio,format=raw,file=./ubuntu.img \
+        -cdrom ./ubuntu-23.04-live-server-arm64.iso \
+        -bios QEMU_EFI.fd \
+        -nographic
