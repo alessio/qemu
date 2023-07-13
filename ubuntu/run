@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 qemu-system-aarch64 -m 4096 \
  -cpu host -smp cpus=4,sockets=1,cores=4,threads=1 -machine virt -accel hvf \
- -bios ./QEMU_EFI.fd \
+ -bios $VIRT_HOME/QEMU_EFI.fd \
  -serial stdio \
  -accel hvf \
- -drive if=virtio,format=raw,file=./ubuntu.img,id=hd0 \
+ -drive if=virtio,format=raw,file=$VIRT_DISKS/ubuntu.img,id=hd0 \
  -device virtio-gpu-pci -usb -device nec-usb-xhci -device usb-kbd \
- -device usb-tablet -device usb-mouse -display default,show-cursor=on
+ -device usb-tablet -device usb-mouse -display default,show-cursor=on \
+ -device virtio-rng-pci
 
 #  -device virtio-blk-device,drive=hd0 \
 #-cpu hostless ql -smp 2 -M virt -bios ./QEMU_EFI.fd \
