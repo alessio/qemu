@@ -5,7 +5,8 @@ qemu-system-aarch64 -m 4096 \
  -serial stdio \
  -accel hvf \
  -drive if=virtio,format=raw,file=./ubuntu.img,id=hd0 \
- -device virtio-gpu-pci -device nec-usb-xhci -device usb-tablet -device usb-kbd
+ -device virtio-gpu-pci -usb -device nec-usb-xhci -device usb-kbd \
+ -device usb-tablet -device usb-mouse -display default,show-cursor=on
 
 #  -device virtio-blk-device,drive=hd0 \
 #-cpu hostless ql -smp 2 -M virt -bios ./QEMU_EFI.fd \
