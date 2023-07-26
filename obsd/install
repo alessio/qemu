@@ -1,13 +1,15 @@
+#!/usr/bin/env bash
+
 set -u
 
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
-DISK=${1:-openbsd}.qcow2
+DISK=$HOME/qemu/disks/root/${1:-openbsd}.qcow2
 
 qemu-system-aarch64   \
--accel hvf     -m 2047     \
--cpu host -smp cpus=4,sockets=1,cores=4,threads=1 \
--M virt \
--drive file=${SCRIPT_DIR}/install73.img,format=raw \
--drive file=$$DISK,format=qcow2     \
--serial tcp::4444,server,telnet,wait \
--drive file=${SCRIPT_DIR}/edk2-aarch64-code.fd,if=pflash,format=raw,readonly=on
+  -accel hvf     -m 2047     \
+  -cpu host -smp cpus=4,sockets=1,cores=4,threads=1 \
+  -M virt \
+  -drive file=${HOME}/qemu/images/openbsd/7.3/install73.img,format=raw \
+  -drive file=$DISK,format=qcow2     \
+  -serial tcp::4444,server,telnet,wait \
+  -drive file=${SCRIPT_DIR}/edk2-aarch64-code.fd,if=pflash,format=raw,readonly=on
